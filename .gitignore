@@ -1,0 +1,9 @@
+# Fichiers sensibles
+config/database.php
+
+# Fichiers temporaires
+*.log
+.DS_Store
+Thumbs.db
+# Fichier de test temporaire
+test-db.php
