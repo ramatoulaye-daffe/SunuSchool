@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <?php endif; ?>
 
-        <section class="ss-add-container" >
+        <section class="ss-add-container">
 
             <div class="ss-add-heading">
 

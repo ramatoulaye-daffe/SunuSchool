@@ -63,20 +63,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Ajouter un cours | SunuSchool</title>
-
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
-<body class="ss-cours-form">
+<body class="ss-crud">
 
     <main class="main-content">
 
-        <header class="cours-form-header">
+        <header class="topbar">
 
             <div>
                 <h1>Ajouter un cours</h1>
@@ -99,12 +95,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <?php endif; ?>
 
-        <section class="cours-form-container">
+        <section class="ss-add-container">
 
-            <div class="cours-form-heading">
+            <div class="ss-add-heading">
 
-                <div class="cours-form-icon">
-                    <i class="fa-solid fa-book"></i>
+                <div class="ss-add-heading-icon">
+                    <i class="fa-solid fa-book-open"></i>
                 </div>
 
                 <div>
@@ -116,12 +112,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <form method="POST" action="">
 
-                <div class="cours-form-grid">
+                <div class="ss-add-grid">
 
-                    <div class="cours-form-field">
-
+                    <div class="ss-add-field">
                         <label for="code">Code du cours *</label>
-
                         <input
                             type="text"
                             id="code"
@@ -130,13 +124,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             value="<?= htmlspecialchars($code) ?>"
                             required
                         >
-
                     </div>
 
-                    <div class="cours-form-field">
-
+                    <div class="ss-add-field">
                         <label for="libelle">Intitulé du cours *</label>
-
                         <input
                             type="text"
                             id="libelle"
@@ -145,13 +136,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             value="<?= htmlspecialchars($libelle) ?>"
                             required
                         >
-
                     </div>
 
-                    <div class="cours-form-field">
-
+                    <div class="ss-add-field">
                         <label for="coefficient">Coefficient *</label>
-
                         <input
                             type="number"
                             id="coefficient"
@@ -162,19 +150,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             value="<?= htmlspecialchars($coefficient) ?>"
                             required
                         >
-
                     </div>
-
                 </div>
 
-                <div class="cours-form-actions">
+                <div class="ss-add-actions">
 
-                    <a href="index.php" class="cours-form-cancel">
+                    <a href="index.php" class="ss-add-cancel">
                         <i class="fa-solid fa-xmark"></i>
                         Annuler
                     </a>
 
-                    <button type="submit" class="cours-form-submit">
+                    <button type="submit" class="ss-add-submit">
                         <i class="fa-solid fa-floppy-disk"></i>
                         Enregistrer le cours
                     </button>

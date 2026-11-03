@@ -959,7 +959,7 @@ a {
     }
 }
 
-/*G-etu*/
+/*hero-crud*/
 @media (max-width: 768px) {
     .main-content {
         padding: 20px 14px;
@@ -1000,7 +1000,7 @@ a {
     }
 }
 
-/*G-filiere*/
+/*G-crud*/
 @media (max-width: 850px) {
     .crud-page {
         padding: 25px 18px;

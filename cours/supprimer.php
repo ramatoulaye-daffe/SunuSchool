@@ -61,43 +61,41 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Supprimer un cours | SunuSchool</title>
-
     <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
-<body class="ss-cours-form">
+<body class="ss-crud">
 
     <main class="main-content">
 
-        <div class="cours-form-header">
-            <a href="index.php" class="btn-home">
-                <i class="fa-solid fa-arrow-left"></i>
-                Retour aux cours
-            </a>
-        </div>
+        <section class="ss-add-container">
 
-        <section class="cours-form-container">
-
-            <div class="cours-form-heading">
-                <div class="cours-form-icon">
-                    <i class="fa-solid fa-trash"></i>
-                </div>
-
-                <h1>Suppression d'un cours</h1>
-                <p>Vérifiez les informations avant de continuer.</p>
+            <div class="delete-icon">
+                <i class="fa-solid fa-trash"></i>
             </div>
+       
+            <div class="ss-delete">
 
-            <?php if ($nombreNotes > 0): ?>
+                <h2>Suppression d'un cours</h2>
+                <p>Vérifiez les informations avant de continuer.</p><br>
+           
+                <?php if ($nombreNotes > 0): ?>
 
-                <div class="form-error">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    Ce cours possède <?= $nombreNotes ?> note(s).
-                    Sa suppression est donc impossible.
-                </div>
+                    <div class="form-error">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        Ce cours possède <?= $nombreNotes ?> note(s).
+                        Sa suppression est donc impossible.
+                    </div>
 
-            <?php else: ?>
+                     <div class="ss-add-actions">
+                        <a href="index.php" class="ss-add-cancel">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Retour aux cours
+                        </a>
+                    </div>
+
+                <?php else: ?>
 
                 <p>
                     Voulez-vous vraiment supprimer le cours
@@ -106,24 +104,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </strong>
                     (<?= htmlspecialchars($cours["code"]) ?>) ?
                 </p>
+            </div>
 
-                <form method="POST" class="cours-form-actions">
+            <form method="POST" class="ss-add-actions">
 
-                    <a href="index.php" class="cours-form-cancel">
-                        Annuler
-                    </a>
+                 <a href="index.php" class="ss-add-cancel">
+                    <i class="fa-solid fa-xmark"></i>
+                    Annuler
+                </a>
 
-                    <button type="submit" class="cours-form-submit">
-                        <i class="fa-solid fa-trash"></i>
-                        Confirmer la suppression
-                    </button>
+                <button type="submit" class="btn-delete">
+                    <i class="fa-solid fa-trash"></i>
+                    Confirmer la suppression
+                </button>
 
-                </form>
+            </form>
 
             <?php endif; ?>
 
             <?php if ($erreur): ?>
-                <a href="index.php" class="cours-form-cancel">
+                <a href="index.php" class="ss-add-cancel">
+                    <i class="fa-solid fa-arrow-left"></i>
                     Retour aux cours
                 </a>
             <?php endif; ?>
