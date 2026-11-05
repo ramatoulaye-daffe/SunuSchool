@@ -655,7 +655,7 @@ a {
     margin-bottom: 8px;
 }
 .crud-header-title p {
-    color:var(--muted);
+    color:var(--navy-light);
     font-size: 13px;
 }
 .crud-header-actions {
@@ -803,7 +803,9 @@ a {
 /* ID */
 .filiere-id ,
 .etudiant-mat ,
-.cours-code {
+.cours-code ,
+.student-name,
+.student-rank{
     display: inline-block;
     padding: 6px 10px;
     background:var(--white);
@@ -848,26 +850,30 @@ a {
 }
 .crud-table-wrapper .action-buttons .filiere-edit ,
 .crud-table-wrapper .action-buttons .etudiant-edit,
-.crud-table-wrapper .action-buttons .cours-edit{
+.crud-table-wrapper .action-buttons .cours-edit,
+.crud-table-wrapper .action-buttons .student-edit{
     background:var(--background);
     color:var(--gold);
 }
 .crud-table-wrapper .action-buttons .filiere-edit:hover ,
 .crud-table-wrapper .action-buttons .etudiant-edit:hover,
-.crud-table-wrapper .action-buttons .cours-edit:hover{
+.crud-table-wrapper .action-buttons .cours-edit:hover,
+.crud-table-wrapper .action-buttons .student-edit:hover{
     background:var(--gold-light);
     color:var(--navy);
     transform: translateY(-3px);
 }
 .crud-table-wrapper .action-buttons .filiere-delete ,
 .crud-table-wrapper .action-buttons .etudiant-delete ,
-.crud-table-wrapper .action-buttons .cours-delete{
+.crud-table-wrapper .action-buttons .cours-delete,
+.crud-table-wrapper .action-buttons .student-delete{
     background:var(--background);
     color: #d92d20;
 }
 .crud-table-wrapper .action-buttons .filiere-delete:hover ,
 .crud-table-wrapper .action-buttons .etudiant-delete:hover ,
-.crud-table-wrapper .action-buttons .cours-delete:hover{
+.crud-table-wrapper .action-buttons .cours-delete:hover,
+.crud-table-wrapper .action-buttons .student-delete:hover{
     background: #d92d20;
     color:var(--white);
     transform: translateY(-3px);
@@ -875,14 +881,16 @@ a {
 /* AUCUNE FILIERE */
 .crud-table-wrapper .filiere-empty ,
 .crud-table-wrapper .etudiant-empty ,
-.crud-table-wrapper .cours-empty{
+.crud-table-wrapper .cours-empty,
+.crud-table-wrapper .student-empty{
     padding: 45px 15px !important;
     text-align: center;
     color:var(--muted) !important;
 }
-.filiere-empty i ,
-.etudiant-empty i ,
-.cours-empty i{
+.filiere-empty i,
+.etudiant-empty i,
+.cours-empty i,
+.student-empty i{
     display: block;
     color:var(--gold);
     font-size: 30px;
@@ -890,10 +898,28 @@ a {
 }
 .filiere-empty p ,
 .etudiant-empty p ,
-.cours-empty p{
+.cours-empty p,
+.student-empty p{
     font-size: 13px;
 }
 
+/*========== CLASSEMENT DES ÉTUDIANTS ==========*/
+.result-admitted,
+.result-failed {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.result-admitted {
+    background:var(--background);
+    color: #218653;
+}
+.result-failed {
+    background:var(--background);
+    color: #D92D20;
+}
 
 
 /* ============ RESPONSIVE - SUNUSCHOOL ===============*/
