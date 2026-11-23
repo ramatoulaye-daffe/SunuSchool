@@ -921,15 +921,253 @@ a {
     color: #D92D20;
 }
 
+/* =================== BULLETIN SCOLAIRE SUNUSCHOOL =================== */
+.bulletin-sheet {
+    width: 100%;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 30px;
+    background: var(--white);
+    color: var(--navy);
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(16, 24, 39, 0.08);
+}
+.bulletin-sheet *,
+.bulletin-sheet *::before,
+.bulletin-sheet *::after {
+    box-sizing: border-box;
+}
+.bulletin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid var(--gold);
+}
+.bulletin-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+.bulletin-logo {
+    width: 55px;
+    height: 55px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--navy);
+    color: var(--gold);
+    border-radius: 12px;
+    font-size: 25px;
+}
+.bulletin-brand h1 {
+    margin: 0;
+    color: var(--navy);
+    font-size: 25px;
+}
+.bulletin-brand p,
+.bulletin-brand small {
+    margin: 4px 0;
+}
+.bulletin-year {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: right;
+}
+.bulletin-year strong {
+    color: var(--gold);
+    font-size: 18px;
+}
+.bulletin-title {
+    text-align: center;
+    margin: 25px 0;
+}
+.bulletin-title h2 {
+    color: var(--navy);
+    font-size: 22px;
+    margin-bottom: 7px;
+}
+.bulletin-title p {
+    color: var(--gold);
+    font-weight: 700;
+}
+.bulletin-section {
+    width: 100%;
+    min-width: 0;
+    margin-bottom: 22px;
+}
+.bulletin-section h3 {
+    background: var(--navy);
+    color: var(--white);
+    padding: 11px 14px;
+    border-left: 4px solid var(--gold);
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+/* Informations étudiant */
+.bulletin-student {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+    padding: 16px;
+    background: var(--light-gray);
+    border: 1px solid var(--border);
+}
+.bulletin-student div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+.bulletin-student span {
+    color: var(--muted);
+    font-size: 11px;
+    text-transform: uppercase;
+}
+.bulletin-student strong {
+    color: var(--navy);
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+/* Tableau des notes */
+.bulletin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+.bulletin-table th {
+    background: var(--navy);
+    color: var(--white);
+    padding: 11px 8px;
+    text-align: center;
+    white-space: nowrap;
+}
+.bulletin-table td {
+    padding: 10px 8px;
+    border: 1px solid var(--border);
+    text-align: center;
+}
+.bulletin-table tbody tr:nth-child(even) {
+    background: var(--light-gray);
+}
+.bulletin-table td:nth-child(2) {
+    text-align: left;
+}
+.bulletin-table td small {
+    display: block;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+/* Bilan du semestre */
+.bulletin-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+.summary-card {
+    background: var(--navy);
+    color: var(--white);
+    padding: 18px 12px;
+    border-radius: 9px;
+    text-align: center;
+    min-width: 0;
+}
+.summary-card span {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+.summary-card strong {
+    display: block;
+    color: var(--gold);
+    font-size: 21px;
+    overflow-wrap: anywhere;
+}
+.bulletin-decision {
+    padding: 12px;
+    margin-top: 15px;
+    background: var(--white);
+    border-left: 4px solid var(--gold);
+}
+.annual-average {
+    background: var(--navy);
+    color: var(--white);
+    padding: 20px;
+    text-align: center;
+    border-radius: 9px;
+}
+.annual-average span {
+    display: block;
+    margin-bottom: 8px;
+}
+.annual-average strong {
+    color: var(--gold);
+    font-size: 25px;
+}
+.annual-details {
+    padding: 12px;
+    background: var(--white);
+    margin-top: 10px;
+}
+.bulletin-observations {
+    min-height: 90px;
+    padding: 15px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    line-height: 1.7;
+}
+.observation-content {
+    overflow-wrap: anywhere;
+}
+.bulletin-signatures {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+    margin-top: 35px;
+}
+.bulletin-signatures div {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    text-align: center;
+    min-width: 0;
+}
+.bulletin-signatures span {
+    color: var(--muted);
+    font-size: 12px;
+}
+.bulletin-footer {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 2px solid var(--gold);
+    text-align: center;
+}
+.bulletin-actions {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+
 
 /* ============ RESPONSIVE - SUNUSCHOOL ===============*/
-
 /*hero*/
 @media (max-width: 1100px) {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
     .main-content {
         padding: 25px;
     }
@@ -1061,3 +1299,163 @@ a {
         flex-direction: column;
     }
 }
+
+/* ==============  BULLETIN RESPONSIVE ============= */
+@media screen and (max-width: 768px) {
+    .bulletin-sheet {
+        padding: 20px;
+        margin: 15px auto;
+    }
+    .bulletin-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .bulletin-header {
+        align-items: flex-start;
+    }
+    .bulletin-year {
+        text-align: left;
+    }
+}
+@media screen and (max-width: 600px) {
+    body {
+        overflow-x: hidden;
+    }
+    .bulletin-sheet {
+        width: 100%;
+        max-width: 100%;
+        margin: 10px 0;
+        padding: 14px;
+        border-radius: 6px;
+        box-shadow: none;
+    }
+    .bulletin-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .bulletin-brand h1 {
+        font-size: 21px;
+    }
+    .bulletin-brand small {
+        font-size: 10px;
+    }
+    .bulletin-year {
+        text-align: left;
+    }
+    .bulletin-title {
+        margin: 20px 0;
+    }
+    .bulletin-title h2 {
+        font-size: 18px;
+    }
+    .bulletin-section h3 {
+        font-size: 12px;
+        padding: 10px;
+    }
+    .bulletin-student {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 12px;
+    }
+    /* Tableau défilant horizontalement */
+    .bulletin-table {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    .bulletin-table th,
+    .bulletin-table td {
+        font-size: 11px;
+        padding: 9px 7px;
+    }
+    .bulletin-summary {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .summary-card {
+        padding: 16px 10px;
+    }
+    .summary-card strong {
+        font-size: 20px;
+    }
+    .annual-average strong {
+        font-size: 22px;
+    }
+    .bulletin-signatures {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    .bulletin-signatures div {
+        gap: 25px;
+    }
+    .bulletin-observations {
+        font-size: 13px;
+    }
+    .bulletin-actions button {
+        width: 100%;
+        font-size: 13px;
+    }
+}
+
+/* IMPRESSION A4 PORTRAIT */
+@page {
+    size: A4 portrait;
+    margin: 10mm;
+}
+@media print {
+    body {
+        background: #ffffff !important;
+        overflow: visible !important;
+    }
+    .no-print,
+    .crud-panel-heading {
+        display: none !important;
+    }
+    .main-content,
+    .crud-page,
+    .crud-panel {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+    .bulletin-sheet {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+    }
+    .bulletin-table {
+        display: table !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        overflow: visible !important;
+        white-space: normal !important;
+        font-size: 10px !important;
+    }
+    .bulletin-table th,
+    .bulletin-table td {
+        padding: 6px 4px !important;
+        font-size: 10px !important;
+    }
+    .bulletin-section,
+    .bulletin-summary,
+    .bulletin-signatures,
+    .annual-section {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+    .bulletin-sheet {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+}
+

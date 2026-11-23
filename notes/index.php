@@ -98,9 +98,14 @@ foreach ($messages as $parametre => $texte) {
                 </div>
 
                 <span>
+                    <a href="bulletin.php" class="crud-badge">
+                        <i class="fa-solid fa-file-lines"></i>
+                        Bulletins scolaires
+                    </a>
+
                     <a href="classement.php" class="crud-badge">
                         <i class="fa-solid fa-ranking-star"></i>
-                        Voir les classements
+                        Les classements
                     </a>
                 </span>
 
