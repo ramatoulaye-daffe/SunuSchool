@@ -1,24 +1,29 @@
 
+
 <?php
 
 require_once __DIR__ . "/config/database.php";
 
-// Nombre d'etudiants
-$nombreEtudiants = $pdo->query(
+// ==========================================
+// 1. STATISTIQUES GÉNÉRALES
+// ==========================================
+
+$nombreEtudiants = (int) $pdo->query(
     "SELECT COUNT(*) FROM etudiants"
 )->fetchColumn();
 
-// Nombre de filieres
-$nombreFilieres = $pdo->query(
+$nombreFilieres = (int) $pdo->query(
     "SELECT COUNT(*) FROM filieres"
 )->fetchColumn();
 
-// Nombre de cours
-$nombreCours = $pdo->query(
+$nombreCours = (int) $pdo->query(
     "SELECT COUNT(*) FROM cours"
 )->fetchColumn();
 
-// Statistiques des notes
+// ==========================================
+// 2. STATISTIQUES DES NOTES
+// ==========================================
+
 $statsNotes = $pdo->query("
     SELECT
         COUNT(*) AS total_notes,
@@ -26,21 +31,103 @@ $statsNotes = $pdo->query("
         MAX(note) AS meilleure_note,
         MIN(note) AS petite_note
     FROM notes
-")->fetch();
+")->fetch(PDO::FETCH_ASSOC);
 
-$moyenneGenerale = $statsNotes["moyenne"] ?? 0;
+$moyenneGenerale = $statsNotes["moyenne"] !== null
+    ? (float) $statsNotes["moyenne"]
+    : 0;
 
-// Recuperer les 5 derniers etudiants
+$totalNotes = (int) $statsNotes["total_notes"];
+
+$meilleureNote = $statsNotes["meilleure_note"];
+$petiteNote = $statsNotes["petite_note"];
+
+// Taux de réussite sur les notes enregistrées
+$tauxReussite = $totalNotes > 0
+    ? (float) $pdo->query("
+        SELECT
+            (COUNT(CASE WHEN note >= 10 THEN 1 END) * 100.0)
+            / COUNT(*)
+        FROM notes
+    ")->fetchColumn()
+    : 0;
+
+// ==========================================
+// 3. DERNIERS ÉTUDIANTS
+// ==========================================
+
 $requeteEtudiants = $pdo->query("
-    SELECT matricule, nom, prenom
+    SELECT
+        matricule,
+        nom,
+        prenom,
+        created_at
     FROM etudiants
     ORDER BY id DESC
     LIMIT 5
 ");
 
-$derniersEtudiants = $requeteEtudiants->fetchAll();
+$derniersEtudiants = $requeteEtudiants->fetchAll(PDO::FETCH_ASSOC);
+
+// ==========================================
+// 4. PERFORMANCES PAR COURS
+// ==========================================
+
+$requetePerformances = $pdo->query("
+    SELECT
+        c.id,
+        c.libelle,
+        AVG(n.note) AS moyenne_cours
+    FROM cours c
+    INNER JOIN notes n ON n.cours_id = c.id
+    GROUP BY c.id, c.libelle
+    ORDER BY moyenne_cours DESC
+    LIMIT 5
+");
+
+$performances = $requetePerformances->fetchAll(PDO::FETCH_ASSOC);
+
+// ==========================================
+// 5. TOP 5 DES ÉTUDIANTS
+// ==========================================
+
+$requeteTopEtudiants = $pdo->query("
+    SELECT
+        e.id,
+        e.matricule,
+        e.nom,
+        e.prenom,
+        ROUND(
+            SUM(n.note * c.coefficient)
+            / NULLIF(SUM(c.coefficient), 0),
+            2
+        ) AS moyenne
+    FROM etudiants e
+    INNER JOIN notes n ON n.etudiant_id = e.id
+    INNER JOIN cours c ON c.id = n.cours_id
+    GROUP BY e.id, e.matricule, e.nom, e.prenom
+    HAVING SUM(c.coefficient) > 0
+    ORDER BY moyenne DESC
+    LIMIT 5
+");
+
+$topEtudiants = $requeteTopEtudiants->fetchAll(PDO::FETCH_ASSOC);
+
+// ==========================================
+// 6. FORMATAGE
+// ==========================================
+
+function h($valeur): string
+{
+    return htmlspecialchars(
+        (string) $valeur,
+        ENT_QUOTES,
+        "UTF-8"
+    );
+}
 
 ?>
+
 
 
 <!DOCTYPE html>
@@ -57,7 +144,6 @@ $derniersEtudiants = $requeteEtudiants->fetchAll();
 
     <div class="app-container">
 
-        <!-- SIDEBAR -->
         <aside class="sidebar" id="sidebar">
 
             <div class="logo">
@@ -110,22 +196,37 @@ $derniersEtudiants = $requeteEtudiants->fetchAll();
 
         </aside>
 
-        <!-- CONTENU PRINCIPAL -->
         <main class="main-content">
-
+ 
             <header class="header">
 
                 <button class="menu-toggle" id="menuToggle">
                     <i class="fa-solid fa-bars"></i>
                 </button>
 
-                <div>
-                    <h1>Tableau de bord</h1>
-                    <p>Bienvenue dans votre espace d'administration.</p>
+                <div class="header-welcome">
+                    <span class="header-tag">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        ESPACE ADMINISTRATION
+                    </span>
+
+                    <h1>Bienvenue sur SunuSchool</h1>
+
+                    <p>
+                        Gérez votre établissement scolaire en toute simplicité.
+                    </p>
+
+                    <div class="header-date">
+                        <i class="fa-regular fa-calendar"></i>
+                        <?= date("d/m/Y") ?>
+                    </div>
                 </div>
 
                 <div class="admin-profile">
-                    <div class="avatar">A</div>
+                    <div class="avatar">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+
                     <div>
                         <strong>Administrateur</strong>
                         <span>Administration</span>
@@ -134,7 +235,6 @@ $derniersEtudiants = $requeteEtudiants->fetchAll();
 
             </header>
 
-            <!-- STATISTIQUES -->
             <section class="stats-grid">
 
                 <article class="stat-card">
@@ -178,7 +278,6 @@ $derniersEtudiants = $requeteEtudiants->fetchAll();
 
             </section>
 
-            <!-- SECTION CONTENU -->
             <section class="dashboard-grid">
 
                 <div class="panel performance">
@@ -191,35 +290,54 @@ $derniersEtudiants = $requeteEtudiants->fetchAll();
 
                         <span class="period">Semestre 1</span>
                     </div>
-
+                    
                     <div class="chart-placeholder">
-                        <div class="chart-bar" style="height:65%">
-                            <span>65%</span>
-                        </div>
 
-                        <div class="chart-bar" style="height:85%">
-                            <span>85%</span>
-                        </div>
+                        <?php if (!empty($performances)) : ?>
 
-                        <div class="chart-bar" style="height:55%">
-                            <span>55%</span>
-                        </div>
+                            <?php foreach ($performances as $performance) : ?>
 
-                        <div class="chart-bar" style="height:95%">
-                            <span>95%</span>
-                        </div>
+                                <?php
+                                    $pourcentage = max(
+                                        0,
+                                        min(100, ((float) $performance["moyenne_cours"] / 20) * 100)
+                                    );
 
-                        <div class="chart-bar" style="height:75%">
-                            <span>75%</span>
-                        </div>
+                                    $hauteur = max(3, $pourcentage);
+                                ?>
+
+                                <div
+                                    class="chart-bar"
+                                    style="height: <?= $hauteur ?>%;"
+                                    title="<?= h($performance["libelle"]) ?>"
+                                >
+                                    <span>
+                                        <?= number_format($pourcentage, 0, ',', ' ') ?>%
+                                    </span>
+                                </div>
+
+                            <?php endforeach; ?>
+
+                        <?php else : ?>
+
+                            <p class="empty-message">
+                                Aucune note enregistrée pour le moment.
+                            </p>
+
+                        <?php endif; ?>
+
                     </div>
 
                     <div class="chart-labels">
-                        <span>PHP</span>
-                        <span>SQL</span>
-                        <span>WEB</span>
-                        <span>PYTHON</span>
-                        <span>AUTRES</span>
+
+                        <?php foreach ($performances as $performance) : ?>
+
+                            <span title="<?= h($performance["libelle"]) ?>">
+                                <?= h($performance["libelle"]) ?>
+                            </span>
+
+                        <?php endforeach; ?>
+
                     </div>
 
                 </div>
@@ -231,21 +349,36 @@ $derniersEtudiants = $requeteEtudiants->fetchAll();
 
                     <div class="info-item">
                         <span>Notes enregistrées</span>
-                        <strong><?= $statsNotes["total_notes"] ?></strong>
+                        <strong><?= $totalNotes ?></strong>
                     </div>
 
                     <div class="info-item">
                         <span>Meilleure note</span>
-                        <strong><?= number_format((float)$statsNotes["meilleure_note"], 2, ',', ' ') ?>/20</strong>
+                        <strong>
+                            <?= $meilleureNote !== null
+                                ? number_format((float) $meilleureNote, 2, ',', ' ') . "/20"
+                                : "—" ?>
+                        </strong>
                     </div>
 
                     <div class="info-item">
                         <span>Plus petite note</span>
-                        <strong><?= number_format((float)$statsNotes["petite_note"], 2, ',', ' ') ?>/20</strong>
+                        <strong>
+                            <?= $petiteNote !== null
+                                ? number_format((float) $petiteNote, 2, ',', ' ') . "/20"
+                                : "—" ?>
+                        </strong>
                     </div>
 
                     <div class="info-item">
-                        <span>Semestre actif</span>
+                        <span>Taux de réussite</span>
+                        <strong>
+                            <?= number_format($tauxReussite, 1, ',', ' ') ?> %
+                        </strong>
+                    </div>
+
+                    <div class="info-item">
+                        <span>Semestre affiché</span>
                         <strong>S1</strong>
                     </div>
 
@@ -253,19 +386,15 @@ $derniersEtudiants = $requeteEtudiants->fetchAll();
 
             </section>
 
-            <!-- DERNIERS ETUDIANTS -->
-            <section class="panel students-panel">
+            <section class="panel students-panel top-students-panel">
 
                 <div class="panel-heading">
                     <div>
-                        <h3>Derniers étudiants</h3>
-                        <p>Liste des étudiants enregistrés</p>
+                        <h3>Top 5 des étudiants</h3>
+                        <p>Classement selon les moyennes pondérées</p>
                     </div>
 
-                    <a href="etudiants/index.php" class="view-all">
-                        Voir tout
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <i class="fa-solid fa-trophy"></i>
                 </div>
 
                 <div class="table-wrapper">
@@ -273,30 +402,55 @@ $derniersEtudiants = $requeteEtudiants->fetchAll();
                     <table>
                         <thead>
                             <tr>
+                                <th>Rang</th>
                                 <th>Matricule</th>
-                                <th>Nom</th>
-                                <th>Prénom</th>
-                                <th>Statut</th>
+                                <th>Étudiant</th>
+                                <th>Moyenne</th>
                             </tr>
                         </thead>
 
                         <tbody>
 
-                            <?php foreach ($derniersEtudiants as $etudiant): ?>
+                            <?php if (!empty($topEtudiants)) : ?>
+
+                                <?php foreach ($topEtudiants as $index => $etudiant) : ?>
+
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                <?= $index + 1 ?>e
+                                            </strong>
+                                        </td>
+
+                                        <td><?= h($etudiant["matricule"]) ?></td>
+
+                                        <td>
+                                            <?= h($etudiant["prenom"] . " " . $etudiant["nom"]) ?>
+                                        </td>
+
+                                        <td class="status">
+                                            <strong>
+                                                <?= number_format(
+                                                    (float) $etudiant["moyenne"],
+                                                    2,
+                                                    ',',
+                                                    ' '
+                                                ) ?> / 20
+                                            </strong>
+                                        </td>
+                                    </tr>
+
+                                <?php endforeach; ?>
+
+                            <?php else : ?>
 
                                 <tr>
-                                    <td><?= htmlspecialchars($etudiant["matricule"]) ?></td>
-
-                                    <td><?= htmlspecialchars($etudiant["nom"]) ?></td>
-
-                                    <td><?= htmlspecialchars($etudiant["prenom"]) ?></td>
-
-                                    <td>
-                                        <span class="status">Inscrit</span>
+                                    <td colspan="4">
+                                        Aucun classement disponible.
                                     </td>
                                 </tr>
 
-                            <?php endforeach; ?>
+                            <?php endif; ?>
 
                         </tbody>
                     </table>
