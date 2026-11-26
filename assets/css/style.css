@@ -1205,6 +1205,471 @@ a {
 }
 
 
+/* ==================================
+   MODULE PRESENCES - SUNUSCHOOL
+================================== */
+
+.presence-container {
+    padding: 30px;
+    max-width: 1500px;
+    margin: auto;
+}
+
+.presence-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.presence-tag {
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.presence-header h1 {
+    color: var(--navy);
+    font-size: 27px;
+    margin: 10px 0;
+}
+
+.presence-header p,
+.presence-panel-title p,
+.presence-students-heading p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.presence-back,
+.presence-submit,
+.presence-reset {
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    padding: 12px 17px;
+    border-radius: 9px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.presence-back,
+.presence-reset {
+    background: var(--navy);
+    color: white;
+}
+
+.presence-panel {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(16,24,39,.05);
+}
+
+.presence-panel-title {
+    margin-bottom: 25px;
+}
+
+.presence-panel-title h2,
+.presence-students-heading h3 {
+    color: var(--navy);
+    font-size: 17px;
+    margin-bottom: 7px;
+}
+
+.presence-filters {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.presence-field label {
+    display: block;
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 9px;
+}
+
+.presence-field select,
+.presence-field input,
+.presence-table input,
+.status-select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    outline: none;
+    font-family: inherit;
+    font-size: 12px;
+}
+
+.presence-field select:focus,
+.presence-field input:focus,
+.presence-table input:focus,
+.status-select:focus {
+    border-color: var(--gold);
+}
+
+.presence-students-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    gap: 15px;
+}
+
+.student-count {
+    background: var(--gold-light);
+    color: var(--navy);
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.presence-table-wrapper {
+    overflow-x: auto;
+}
+
+.presence-table {
+    min-width: 750px;
+}
+
+.presence-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.presence-submit {
+    background: var(--gold);
+    color: var(--navy);
+}
+
+.presence-submit:hover {
+    background: var(--navy);
+    color: white;
+}
+
+.presence-reset:hover,
+.presence-back:hover {
+    background: var(--gold);
+    color: var(--navy);
+}
+
+/* STATISTIQUES DES PRESENCES */
+
+.presence-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.presence-stat-card {
+    position: relative;
+    background: #fff;
+    padding: 22px;
+    border-radius: 14px;
+    border: 1px solid #e8eaf0;
+    box-shadow: 0 5px 18px rgba(16, 24, 39, 0.05);
+}
+
+.presence-stat-card span {
+    color: #697386;
+    font-size: 13px;
+}
+
+.presence-stat-card h2 {
+    color: #101827;
+    font-size: 27px;
+    margin: 12px 0 0;
+}
+
+.presence-stat-card i {
+    position: absolute;
+    right: 20px;
+    top: 22px;
+    color: #c9a44c;
+    font-size: 22px;
+}
+
+.presence-status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: #f3f4f6;
+    color: #101827;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .presence-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* FILTRES HISTORIQUE DES PRESENCES */
+
+.history-filters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin: 25px 0;
+    padding: 20px;
+    background: #f8f9fb;
+    border: 1px solid #e8eaf0;
+    border-radius: 12px;
+}
+
+.history-filters .presence-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.history-filters label {
+    color: #101827;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.history-filters select,
+.history-filters input {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid #dfe3e9;
+    border-radius: 8px;
+    background: #fff;
+    color: #101827;
+    outline: none;
+}
+
+.history-filters select:focus,
+.history-filters input:focus {
+    border-color: #c9a44c;
+    box-shadow: 0 0 0 3px rgba(201, 164, 76, 0.12);
+}
+
+.history-filter-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.history-filter-actions a {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+@media (max-width: 600px) {
+    .history-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .history-filter-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .history-filter-actions button,
+    .history-filter-actions a {
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+/* FICHE INDIVIDUELLE DE PRESENCE */
+
+.student-profile-panel {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-bottom: 25px;
+}
+
+.student-profile-avatar {
+    width: 85px;
+    height: 85px;
+    min-width: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    background: #101827;
+    color: #c9a44c;
+    font-size: 35px;
+}
+
+.student-profile-info h2 {
+    color: #101827;
+    margin: 0 0 12px;
+}
+
+.student-profile-info p {
+    color: #697386;
+    margin: 6px 0;
+    font-size: 14px;
+}
+
+.attendance-progress {
+    width: 100%;
+    height: 13px;
+    background: #e8eaf0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 18px;
+}
+
+.attendance-progress-bar {
+    height: 100%;
+    background: #c9a44c;
+    border-radius: 20px;
+    transition: width 0.4s ease;
+}
+
+.attendance-progress-label {
+    text-align: right;
+    color: #101827;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    .student-profile-panel {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .student-profile-avatar {
+        width: 65px;
+        height: 65px;
+        min-width: 65px;
+        font-size: 27px;
+    }
+}
+
+.student-history-link {
+    color: #101827;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.student-history-link:hover {
+    color: #c9a44c;
+    text-decoration: underline;
+}
+
+/* ACTIONS DE LA FICHE */
+
+.presence-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.presence-print-btn {
+    border: none;
+    background: #101827;
+    color: #ffffff;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.presence-print-btn:hover {
+    background: #c9a44c;
+    color: #101827;
+}
+
+/* IMPRESSION DE LA FICHE DE PRESENCE */
+
+@media print {
+
+    @page {
+        size: A4 portrait;
+        margin: 15mm;
+    }
+
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    .presence-container {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .presence-header-actions {
+        display: none !important;
+    }
+
+    .presence-panel,
+    .presence-stat-card {
+        box-shadow: none !important;
+        break-inside: avoid;
+        border: 1px solid #dddddd !important;
+    }
+
+    .presence-stats {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 10px !important;
+    }
+
+    .presence-table-wrapper {
+        overflow: visible !important;
+    }
+
+    .presence-table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        font-size: 10px !important;
+    }
+
+    .presence-table th,
+    .presence-table td {
+        border: 1px solid #cccccc !important;
+        padding: 7px !important;
+        color: #000000 !important;
+    }
+
+    .presence-table thead {
+        display: table-header-group;
+    }
+
+    .presence-table tr {
+        break-inside: avoid;
+    }
+
+    .attendance-progress {
+        border: 1px solid #cccccc;
+    }
+
+    .attendance-progress-bar {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+}
+
 
 /* ============ RESPONSIVE - SUNUSCHOOL ===============*/
 @media screen and (max-width: 768px) {
@@ -1515,4 +1980,30 @@ a {
         -webkit-print-color-adjust: exact;
     }
 }
+/*presence*/
+@media(max-width: 768px) {
+    .presence-container {
+        padding: 18px 12px;
+    }
 
+    .presence-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .presence-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .presence-panel {
+        padding: 16px;
+    }
+
+    .presence-actions {
+        flex-direction: column;
+    }
+
+    .presence-actions button {
+        width: 100%;
+    }
+}
